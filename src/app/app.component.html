@@ -33,13 +33,38 @@
       <th>Тема урока</th>
       <th>Домашнее задание</th>
       <th>Примечание</th>
-     </tr>
-     <tr *ngFor="let l of lessons">
+    </tr>
+    <tr *ngFor="let l of lessons">
       <td>{{l.number}}</td>
       <td>{{l.date}}</td>
       <td>{{l.theme}} </td>
       <td>{{l.homework}}</td>
       <td>{{l.note}}</td>
-     </tr>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <h3>Оценки</h3>
+
+  <table>
+    <tr>
+      <th>Фамили И.О.</th>
+      <th *ngFor="let l of lessons">{{l.date}} {{l.theme}}</th>
+      <th>Средний Балл</th>
+      <th>Округленный Балл</th>
+    </tr>
+    <tr *ngFor="let s of students">
+      <th>{{s.fio}}</th>
+      <th *ngFor="let l of lessons">
+        <select class="form-control" name="rait" (change)="addRait(r.value, s)" #r>
+          <option *ngFor="let r of raitinggs" [value]="r" >
+            {{r}}
+          </option>
+        </select>
+      </th>
+      <th>{{s.raiting}}</th>
+      <th>{{s.avrg}}</th>
+    </tr>
   </table>
 </div>

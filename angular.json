@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "home4th1st"
+    }
+  },
+  "defaultProject": "home4th1st",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,22 @@
+label {
+    width:130px;
+    display: inline-block;
+}
+input {
+    width:150px;
+    display: inline-block;
+}
+table {
+    table-layout: fixed;
+    width:100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+td {
+    word-wrap:break-word;
+    border: 1px solid black;
+}
+th {
+    word-wrap:break-word;
+    border: 1px solid black;
+}

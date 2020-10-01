@@ -3,7 +3,7 @@ label {
     display: inline-block;
 }
 input {
-    width:150px;
+    width:170px;
     display: inline-block;
 }
 table {
@@ -15,8 +15,12 @@ table {
 td {
     word-wrap:break-word;
     border: 1px solid black;
+    text-align: center;
 }
 th {
     word-wrap:break-word;
     border: 1px solid black;
 }
+
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}

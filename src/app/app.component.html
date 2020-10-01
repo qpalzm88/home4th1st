@@ -1,29 +1,49 @@
+<span>{{now | date:"dd.MM.yyyy hh:mm:ss"}}</span>
+
 <h2>Таблица уроков</h2>
-<div>
-  <div class="form-group">
+<form [formGroup]="myForm" (ngSubmit)="addLesson()">
+  <div>
     <label>Номер</label>
-    <input type="number" name="number" [(ngModel)]="lesson.number" #lessonNumber="ngModel">
+    <input type="number" name="number" formControlName="number" />
+    <div *ngIf="myForm.controls['number'].invalid && myForm.controls['number'].touched">
+      Не указан номер занятия
+    </div>
   </div>
-  <div class="form-group">
+  <div>
     <label>Дата урока</label>
-    <input type="date" name="date" [(ngModel)]="lesson.date" #lessonDate="ngModel" required>
+    <input type="date" name="date" formControlName="date" required appAppDer />
+    <div *ngIf="myForm.controls['date'].invalid && myForm.controls['date'].touched">
+      Не корректная дата
+    </div>
   </div>
-  <div class="form-group">
+  <div>
     <label>Тема урока</label>
-    <input type="string" class="form-control" name="theme" [(ngModel)]="lesson.theme" #lessonTheme="ngModel" />
+    <input name="theme" formControlName="theme" />
+    <div *ngIf="myForm.controls['theme'].invalid && myForm.controls['theme'].touched">
+      Не указана тема урока
+    </div>
   </div>
-  <div class="form-group">
+  <div>
     <label>Домашнее задание</label>
-    <input type="string" class="form-control" name="homework" [(ngModel)]="lesson.homework" #lessonHomework="ngModel" />
+    <input name="homework" formControlName="homework" />
+    <div *ngIf="myForm.controls['homework'].invalid && myForm.controls['homework'].touched">
+      Не указано Домашнее задание
+    </div>
   </div>
-  <div class="form-group">
+  <div>
     <label>Примечание</label>
-    <input type="string" class="form-control" name="note" [(ngModel)]="lesson.note" #lessonNote="ngModel" />
+    <input name="note" formControlName="note" />
+    <div *ngIf="myForm.controls['note'].invalid && myForm.controls['note'].touched">
+      Не указано Примечание
+    </div>
   </div>
-  <div class="form-group">
-    <button class="btn btn-default" (click)="addLesson()">Добавить урок</button>
+  <div>
+    <button [disabled]="myForm.invalid">
+      Добавить урок
+    </button>
   </div>
-</div>
+</form>
+
 <div>
   <h3>Уроки</h3>
   <table>
@@ -53,18 +73,40 @@
       <th *ngFor="let l of lessons">{{l.date}} {{l.theme}}</th>
       <th>Средний Балл</th>
       <th>Округленный Балл</th>
+      <th>Примечание</th>
     </tr>
     <tr *ngFor="let s of students">
       <th>{{s.fio}}</th>
       <th *ngFor="let l of lessons">
-        <select class="form-control" name="rait" (change)="addRait(r.value, s)" #r>
-          <option *ngFor="let r of raitinggs" [value]="r" >
+        <select class="form-control" name="rait" (change)="serv.addRait(r.value, s, l)" #r>
+          <option *ngFor="let r of raitinggs" [value]="r">
             {{r}}
           </option>
         </select>
       </th>
       <th>{{s.raiting}}</th>
       <th>{{s.avrg}}</th>
+      <th *ngIf="lessons.length == 0 ">
+        
+      </th>
+      <th *ngIf="lessons.length > 0 &&  !(s.raiting)">
+        Проставьте оценки
+      </th>
+      <th *ngIf="lessons.length > 0 &&  s.raiting && s.raiting<3">
+        Плохие оценки, возможно пора отчислять
+      </th>
+      <th *ngIf="lessons.length > 0 &&  s.raiting && s.raiting>=3 && s.raiting<3.75 ">
+        Нужно обратить внимание, возможна нужна помощь ученику
+      </th>
+      <th *ngIf="lessons.length > 0 &&  s.raiting && s.raiting>=3.75 && s.raiting<4.25">
+        Результат удовлитворительный, но нужно еще спросить для более точной оценки
+      </th>
+      <th *ngIf="lessons.length > 0 &&  s.raiting && s.raiting>=4.25 && s.raiting<4.75">
+        Результат хорошо, но нужно еще спросить для более точной оценки
+      </th>
+      <th *ngIf="lessons.length > 0 &&  s.raiting && s.raiting>=4.75">
+        Отличник
+      </th>
     </tr>
   </table>
 </div>
